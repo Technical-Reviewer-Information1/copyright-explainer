@@ -193,61 +193,62 @@ def step4_bgm_selection():
     
     # Visualization of copyright duration
     if choice:
-        current_year = 2024
+        current_year = 2025
         
         # バッハのケース（1750年没 → 1820年まで保護）
         bach_death = 1750
         bach_protection_end = bach_death + 70
         
-        # 現代アイドルのケース（仮に1980年生まれ、2050年没予定とし、2120年まで保護）
-        idol_birth = 1980
-        idol_death_estimate = 2050  # 推定
-        idol_protection_end = idol_death_estimate + 70
+        # 現代アイドルのケース（現在活動中）
+        idol_start = 2000  # 活動開始年
         
         fig = go.Figure()
         
-        # バッハの保護期間（横棒グラフ）
+        # バッハの保護期間タイムライン
+        bach_years = list(range(bach_death, current_year + 1))
+        bach_colors = ['red' if year <= bach_protection_end else 'green' for year in bach_years]
+        
         fig.add_trace(go.Bar(
             name='バッハ（1750年没）',
-            y=['バッハ', 'バッハ'],
-            x=[bach_protection_end - bach_death, current_year - bach_protection_end],
+            y=['バッハ'] * len(bach_years),
+            x=[1] * len(bach_years),
+            base=bach_years,
             orientation='h',
-            marker_color=['red', 'green'],
-            text=[f'保護期間: {bach_death}年-{bach_protection_end}年', 
-                  f'パブリック・ドメイン: {bach_protection_end}年-現在'],
-            textposition='inside',
-            hovertemplate='<b>%{fullData.name}</b><br>期間: %{text}<extra></extra>'
+            marker_color=bach_colors,
+            showlegend=False,
+            hovertemplate='バッハ<br>%{base}年: %{text}<extra></extra>',
+            text=['保護期間中' if year <= bach_protection_end else 'パブリック・ドメイン' for year in bach_years]
         ))
         
-        # 現代アイドルの保護期間
+        # 現代アイドルの保護期間タイムライン
+        idol_years = list(range(idol_start, current_year + 1))
+        
         fig.add_trace(go.Bar(
-            name='現代のアイドル（推定）',
-            y=['現代アイドル', '現代アイドル'],
-            x=[current_year - idol_birth, idol_protection_end - current_year],
+            name='現代のアイドル',
+            y=['現代アイドル'] * len(idol_years),
+            x=[1] * len(idol_years),
+            base=idol_years,
             orientation='h',
-            marker_color=['red', 'red'],
-            text=[f'現在の保護期間: {idol_birth}年-現在', 
-                  f'将来の保護期間: 現在-{idol_protection_end}年'],
-            textposition='inside',
-            hovertemplate='<b>%{fullData.name}</b><br>期間: %{text}<extra></extra>'
+            marker_color=['red'] * len(idol_years),
+            showlegend=False,
+            hovertemplate='現代アイドル<br>%{base}年: 著作権保護期間中<extra></extra>',
+            text=['著作権保護中'] * len(idol_years)
         ))
         
         fig.update_layout(
-            title="著作権の保護期間タイムライン（赤=保護期間、緑=自由利用可能）",
-            xaxis_title="年数",
-            yaxis_title="作品",
-            barmode='stack',
-            height=300,
+            title="著作権の保護期間タイムライン（西暦表示）",
+            xaxis_title="",
+            yaxis_title="",
+            height=400,
+            xaxis=dict(range=[1750, current_year + 50]),
             showlegend=False
         )
         
-        # 現在年を示す縦線を追加
-        fig.add_vline(
-            x=current_year - 1750, 
-            line_dash="dash", 
-            line_color="blue",
-            annotation_text="現在 (2024年)"
-        )
+        # 重要な年を示す縦線を追加
+        fig.add_vline(x=bach_protection_end, line_dash="dot", line_color="orange", 
+                      annotation_text="1820年<br>バッハ保護終了")
+        fig.add_vline(x=current_year, line_dash="dash", line_color="blue", 
+                      annotation_text=f"現在 ({current_year}年)")
         
         st.plotly_chart(fig, use_container_width=True)
         
@@ -255,9 +256,19 @@ def step4_bgm_selection():
         **グラフの見方：**
         - 🔴 赤い部分：著作権保護期間（利用制限あり）
         - 🟢 緑の部分：保護期間終了（自由利用可能）
-        - 📅 青い線：現在（2024年）
+        - 📅 青い線：現在（2025年）
+        - 🟠 オレンジ線：バッハの保護期間終了（1820年）
+        """)
         
-        **ポイント：** バッハは1820年（1750年没＋70年）に保護期間が終了したため、現在は自由に利用できます。
+        st.warning("""
+        **重要な注意点：**
+        
+        📝 **楽曲の著作権**と**演奏・録音の著作隣接権**は別物です：
+        
+        - **バッハの楽曲自体**：パブリック・ドメイン（自由利用可能）
+        - **現代の演奏・録音**：演奏者や録音会社に著作隣接権があり、保護期間中（通常50～70年）
+        
+        つまり、バッハの楽譜は自由に使えますが、**特定の演奏録音を使う場合は演奏者・録音会社の許可が必要**です。
         """)
 
 def step5_quotation():
