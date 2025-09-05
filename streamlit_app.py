@@ -204,51 +204,61 @@ def step4_bgm_selection():
         
         fig = go.Figure()
         
-        # バッハの保護期間タイムライン
-        bach_years = list(range(bach_death, current_year + 1))
-        bach_colors = ['red' if year <= bach_protection_end else 'green' for year in bach_years]
+        # バッハの保護期間（2つのセグメントに分ける）
+        fig.add_trace(go.Bar(
+            name='バッハ（1750年没）',
+            y=['バッハ'],
+            x=[bach_protection_end - bach_death],
+            base=[bach_death],
+            orientation='h',
+            marker_color='red',
+            text='保護期間 (1750-1820年)',
+            textposition='inside',
+            showlegend=False,
+            hovertemplate='バッハ<br>1750-1820年: 保護期間中<extra></extra>'
+        ))
         
         fig.add_trace(go.Bar(
             name='バッハ（1750年没）',
-            y=['バッハ'] * len(bach_years),
-            x=[1] * len(bach_years),
-            base=bach_years,
+            y=['バッハ'],
+            x=[current_year - bach_protection_end],
+            base=[bach_protection_end],
             orientation='h',
-            marker_color=bach_colors,
+            marker_color='green',
+            text='パブリック・ドメイン (1820年以降)',
+            textposition='inside',
             showlegend=False,
-            hovertemplate='バッハ<br>%{base}年: %{text}<extra></extra>',
-            text=['保護期間中' if year <= bach_protection_end else 'パブリック・ドメイン' for year in bach_years]
+            hovertemplate='バッハ<br>1820年以降: パブリック・ドメイン<extra></extra>'
         ))
         
-        # 現代アイドルの保護期間タイムライン
-        idol_years = list(range(idol_start, current_year + 1))
-        
+        # 現代アイドルの保護期間
         fig.add_trace(go.Bar(
             name='現代のアイドル',
-            y=['現代アイドル'] * len(idol_years),
-            x=[1] * len(idol_years),
-            base=idol_years,
+            y=['現代アイドル'],
+            x=[current_year - idol_start],
+            base=[idol_start],
             orientation='h',
-            marker_color=['red'] * len(idol_years),
+            marker_color='red',
+            text='著作権保護期間中 (2000年以降)',
+            textposition='inside',
             showlegend=False,
-            hovertemplate='現代アイドル<br>%{base}年: 著作権保護期間中<extra></extra>',
-            text=['著作権保護中'] * len(idol_years)
+            hovertemplate='現代アイドル<br>2000年以降: 著作権保護期間中<extra></extra>'
         ))
         
         fig.update_layout(
             title="著作権の保護期間タイムライン（西暦表示）",
-            xaxis_title="",
+            xaxis_title="西暦",
             yaxis_title="",
-            height=400,
-            xaxis=dict(range=[1750, current_year + 50]),
+            height=300,
+            xaxis=dict(range=[1740, 2040]),
             showlegend=False
         )
         
         # 重要な年を示す縦線を追加
         fig.add_vline(x=bach_protection_end, line_dash="dot", line_color="orange", 
-                      annotation_text="1820年<br>バッハ保護終了")
+                      annotation_text="1820年<br>保護終了")
         fig.add_vline(x=current_year, line_dash="dash", line_color="blue", 
-                      annotation_text=f"現在 ({current_year}年)")
+                      annotation_text=f"現在<br>({current_year}年)")
         
         st.plotly_chart(fig, use_container_width=True)
         
