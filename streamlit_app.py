@@ -193,34 +193,72 @@ def step4_bgm_selection():
     
     # Visualization of copyright duration
     if choice:
+        current_year = 2024
+        
+        # バッハのケース（1750年没 → 1820年まで保護）
+        bach_death = 1750
+        bach_protection_end = bach_death + 70
+        
+        # 現代アイドルのケース（仮に1980年生まれ、2050年没予定とし、2120年まで保護）
+        idol_birth = 1980
+        idol_death_estimate = 2050  # 推定
+        idol_protection_end = idol_death_estimate + 70
+        
         fig = go.Figure()
         
+        # バッハの保護期間（横棒グラフ）
         fig.add_trace(go.Bar(
             name='バッハ（1750年没）',
-            x=['1750年', '2024年'],
-            y=[1, 0],
-            marker_color='green',
-            text=['著作権あり', '著作権なし（自由利用）'],
-            textposition='inside'
+            y=['バッハ', 'バッハ'],
+            x=[bach_protection_end - bach_death, current_year - bach_protection_end],
+            orientation='h',
+            marker_color=['red', 'green'],
+            text=[f'保護期間: {bach_death}年-{bach_protection_end}年', 
+                  f'パブリック・ドメイン: {bach_protection_end}年-現在'],
+            textposition='inside',
+            hovertemplate='<b>%{fullData.name}</b><br>期間: %{text}<extra></extra>'
         ))
         
+        # 現代アイドルの保護期間
         fig.add_trace(go.Bar(
-            name='現代のアイドル',
-            x=['2024年', '2090年頃'],
-            y=[1, 1],
-            marker_color='red',
-            text=['著作権あり', '著作権あり'],
-            textposition='inside'
+            name='現代のアイドル（推定）',
+            y=['現代アイドル', '現代アイドル'],
+            x=[current_year - idol_birth, idol_protection_end - current_year],
+            orientation='h',
+            marker_color=['red', 'red'],
+            text=[f'現在の保護期間: {idol_birth}年-現在', 
+                  f'将来の保護期間: 現在-{idol_protection_end}年'],
+            textposition='inside',
+            hovertemplate='<b>%{fullData.name}</b><br>期間: %{text}<extra></extra>'
         ))
         
         fig.update_layout(
-            title="著作権の保護期間の比較",
-            yaxis_title="著作権の有無",
-            barmode='group',
-            height=400
+            title="著作権の保護期間タイムライン（赤=保護期間、緑=自由利用可能）",
+            xaxis_title="年数",
+            yaxis_title="作品",
+            barmode='stack',
+            height=300,
+            showlegend=False
+        )
+        
+        # 現在年を示す縦線を追加
+        fig.add_vline(
+            x=current_year - 1750, 
+            line_dash="dash", 
+            line_color="blue",
+            annotation_text="現在 (2024年)"
         )
         
         st.plotly_chart(fig, use_container_width=True)
+        
+        st.info("""
+        **グラフの見方：**
+        - 🔴 赤い部分：著作権保護期間（利用制限あり）
+        - 🟢 緑の部分：保護期間終了（自由利用可能）
+        - 📅 青い線：現在（2024年）
+        
+        **ポイント：** バッハは1820年（1750年没＋70年）に保護期間が終了したため、現在は自由に利用できます。
+        """)
 
 def step5_quotation():
     st.header("ステップ5: ルールを守って「引用」しよう！📚")
