@@ -181,7 +181,8 @@ def step4_bgm_selection():
             st.success("""
             ✅ **正解です！**
             
-            バッハのように、作者の死後、著作権の保護期間が切れた楽曲は**パブリック・ドメイン**となり、自由に利用できます。
+            バッハの楽曲は現在**パブリック・ドメイン**となり、自由に利用できます。
+            ただし、バッハの時代（1750年）には現代のような著作権制度は確立されていませんでした。
             """)
         else:
             st.error("""
@@ -195,43 +196,25 @@ def step4_bgm_selection():
     if choice:
         current_year = 2025
         
-        # バッハのケース（1750年没 → 1820年まで保護）
-        bach_death = 1750
-        bach_protection_end = bach_death + 70
-        
-        # 現代アイドルのケース（現在活動中）
-        idol_start = 2000  # 活動開始年
-        
+        # 歴史的に正確な表現に修正
         fig = go.Figure()
         
-        # バッハの保護期間（2つのセグメントに分ける）
+        # バッハの楽曲（歴史的背景を正確に表現）
         fig.add_trace(go.Bar(
-            name='バッハ（1750年没）',
+            name='バッハの楽曲',
             y=['バッハ'],
-            x=[bach_protection_end - bach_death],
-            base=[bach_death],
-            orientation='h',
-            marker_color='red',
-            text='保護期間 (1750-1820年)',
-            textposition='inside',
-            showlegend=False,
-            hovertemplate='バッハ<br>1750-1820年: 保護期間中<extra></extra>'
-        ))
-        
-        fig.add_trace(go.Bar(
-            name='バッハ（1750年没）',
-            y=['バッハ'],
-            x=[current_year - bach_protection_end],
-            base=[bach_protection_end],
+            x=[current_year - 1750],
+            base=[1750],
             orientation='h',
             marker_color='green',
-            text='パブリック・ドメイン (1820年以降)',
+            text='現在はパブリック・ドメイン (1750年以降)',
             textposition='inside',
             showlegend=False,
-            hovertemplate='バッハ<br>1820年以降: パブリック・ドメイン<extra></extra>'
+            hovertemplate='バッハ<br>1750年以降: 現在はパブリック・ドメイン<extra></extra>'
         ))
         
         # 現代アイドルの保護期間
+        idol_start = 2000  # 活動開始年
         fig.add_trace(go.Bar(
             name='現代のアイドル',
             y=['現代アイドル'],
@@ -246,7 +229,7 @@ def step4_bgm_selection():
         ))
         
         fig.update_layout(
-            title="著作権の保護期間タイムライン（西暦表示）",
+            title="古典音楽と現代音楽の著作権状況比較（西暦表示）",
             xaxis_title="西暦",
             yaxis_title="",
             height=300,
@@ -255,8 +238,8 @@ def step4_bgm_selection():
         )
         
         # 重要な年を示す縦線を追加
-        fig.add_vline(x=bach_protection_end, line_dash="dot", line_color="orange", 
-                      annotation_text="1820年<br>保護終了")
+        fig.add_vline(x=1750, line_dash="dot", line_color="orange", 
+                      annotation_text="1750年<br>バッハ没")
         fig.add_vline(x=current_year, line_dash="dash", line_color="blue", 
                       annotation_text=f"現在<br>({current_year}年)")
         
@@ -264,21 +247,26 @@ def step4_bgm_selection():
         
         st.info("""
         **グラフの見方：**
-        - 🔴 赤い部分：著作権保護期間（利用制限あり）
-        - 🟢 緑の部分：保護期間終了（自由利用可能）
+        - 🟢 緑の部分：現在はパブリック・ドメイン（自由利用可能）
+        - 🔴 赤い部分：著作権保護期間中（利用制限あり）
         - 📅 青い線：現在（2025年）
-        - 🟠 オレンジ線：バッハの保護期間終了（1820年）
+        - 🟠 オレンジ線：バッハの没年（1750年）
         """)
         
         st.warning("""
-        **重要な注意点：**
+        **重要な歴史的事実：**
         
-        📝 **楽曲の著作権**と**演奏・録音の著作隣接権**は別物です：
+        📝 **著作権制度の発展について**：
         
-        - **バッハの楽曲自体**：パブリック・ドメイン（自由利用可能）
-        - **現代の演奏・録音**：演奏者や録音会社に著作隣接権があり、保護期間中（通常50～70年）
+        - **1750年当時**：現代的な著作権制度はまだ確立されていませんでした
+        - **世界初の著作権法**：1710年イギリスのアン法（保護期間最大28年）
+        - **音楽出版業**：1754年頃から本格化（ドイツのブライトコプフ社など）
         
-        つまり、バッハの楽譜は自由に使えますが、**特定の演奏録音を使う場合は演奏者・録音会社の許可が必要**です。
+        つまり、バッハの楽曲は著作権制度が未発達な時代に作られ、現在では長い年月の経過により**パブリック・ドメイン**となっています。
+        
+        **演奏・録音について**：
+        - **バッハの楽譜**：自由に使用可能
+        - **特定の演奏録音**：演奏者・録音会社に著作隣接権があり、使用には許可が必要な場合があります
         """)
 
 def step5_quotation():
