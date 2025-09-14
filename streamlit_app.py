@@ -9,7 +9,7 @@ def main():
         layout="wide"
     )
     
-    st.title("🎨 著作権")
+    st.title("著作権（pp.211-214）")
     st.caption("Created by Dit-Lab.(Daiki ITO)")
     st.caption("Supported by Tomoaki ATSUMI")
     
