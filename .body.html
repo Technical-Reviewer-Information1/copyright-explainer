@@ -1,0 +1,72 @@
+  <section class="step" id="step1">
+    <h2><span class="no">STEP 1</span>保護期間を計算する</h2>
+    <p class="desc">日本の著作権は、原則として<strong>著作者の死後70年</strong>保護されます。期間が終わった作品は誰でも自由に使えます（パブリックドメイン）。</p>
+    <div class="panel">
+      <div class="btn-row" style="align-items:flex-end;flex-wrap:wrap;gap:10px">
+        <label class="fld" for="deathY">著作者が亡くなった年<br>
+          <input type="number" id="deathY" value="1750" class="mono" style="width:8em"></label>
+        <button class="btn" data-y="1750">バッハ（1750年没）</button>
+        <button class="btn" data-y="1827">ベートーヴェン（1827年没）</button>
+        <button class="btn" data-y="1970">1970年没の場合</button>
+      </div>
+      <div class="timeline2" id="tlBox"></div>
+      <div class="note" id="tlNote" style="margin-top:18px"></div>
+      <div class="note warn" style="margin-top:10px">
+        注意：作品そのものの著作権が切れていても、<strong>それを演奏・録音した人の権利（著作隣接権）</strong>は別に存在します。
+        市販CDの複製は、曲が古くても著作隣接権の侵害になります。
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step2">
+    <h2><span class="no">STEP 2</span>引用のルールを確かめる</h2>
+    <p class="desc">許可なく引用するには、次の条件をすべて満たす必要があります。自分のレポートで確かめてみましょう。</p>
+    <div class="panel">
+      <div class="rulelist" id="ruleBox"></div>
+      <div class="note" id="ruleNote" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step3">
+    <h2><span class="no">STEP 3</span>CCライセンスを組み立てる（問3）</h2>
+    <p class="desc"><strong>BYは必須</strong>。それ以外は自由に組み合わせられますが、<strong>矛盾する組合せ</strong>は指定できません。</p>
+    <div class="panel">
+      <div class="ccopts" id="ccOpts"></div>
+      <p class="qhead" style="margin-top:14px">できあがるバナー</p>
+      <div id="ccOut"></div>
+      <div class="note" id="ccNote" style="margin-top:12px"></div>
+      <hr class="sep">
+      <p class="qhead">組み合わせが誤っているバナーを2つ選ぶ</p>
+      <div class="ccbank" id="ccBank"></div>
+      <div class="note" id="bankNote" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step4">
+    <h2><span class="no">STEP 4</span>著作権法に基づく判断（問1・問2）</h2>
+    <div class="panel">
+      <div id="q1Box"></div>
+      <div class="note" id="q1Note" style="margin-top:10px"></div>
+      <hr class="sep">
+      <div id="q2Box"></div>
+      <div class="note" id="q2Note" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <section class="step" id="glossary">
+    <h2><span class="no">用語</span>この節で出てくることば</h2>
+    <div class="panel"><div id="glossBox"></div></div>
+  </section>
+
+  <section class="step" id="wrap">
+    <h2><span class="no">まとめ</span>おさえておきたいこと</h2>
+    <div class="panel">
+      <ul class="bullets">
+        <li>著作権は<strong>創作した時点で自動的に発生</strong>する（無方式主義）。保護期間は原則として<strong>著作者の死後70年</strong>。</li>
+        <li>期間が終わった作品は<strong>パブリックドメイン</strong>となり、誰でも自由に使える。ただし<strong>著作隣接権</strong>は別。</li>
+        <li><strong>私的使用のための複製</strong>は認められるが、対象は本人と家庭内まで。友人に渡すと侵害になる。</li>
+        <li>引用は「自作が主・引用が従」「引用の必然性」「区別できる」「改変しない」「出典を明記」の条件が必要。</li>
+        <li>CCライセンスは<strong>BYが必須</strong>。<strong>ND（改変禁止）とSA（継承）は同時に指定できない</strong>（矛盾するため）。</li>
+      </ul>
+    </div>
+  </section>
