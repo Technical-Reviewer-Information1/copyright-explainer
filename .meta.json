@@ -3,7 +3,11 @@
  "title": "著作権",
  "pp": "pp.211-212",
  "lead": "保護期間の計算、引用のルールの確認、CCライセンスの組み立てまで、実際に手を動かして確かめられます。",
- "scripts": ["chart.js","terms.js","quiz.js","app.js"],
+ "scripts": [
+  "terms.js",
+  "quiz.js",
+  "app.js"
+ ],
  "use": {
   "class": [
    "STEP 1 で好きな作家や作曲家の没年を入れ、まだ保護されているかを調べさせる。",
