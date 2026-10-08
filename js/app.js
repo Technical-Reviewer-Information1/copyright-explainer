@@ -8,11 +8,17 @@
     const d = +$('deathY').value || 0, end = d + 70;
     const min = Math.min(d, 1700), max = Math.max(end, NOW) + 10;
     const pos = y => (y - min) / (max - min) * 100;
-    $('tlBox').innerHTML =
-      '<i style="left:' + pos(d) + '%;width:' + Math.max(0, pos(end) - pos(d)) + '%"></i>' +
-      '<span class="now" style="left:' + pos(NOW) + '%"></span>' +
-      '<span class="lb" style="left:' + pos(d) + '%">没' + d + '</span>' +
-      '<span class="lb" style="left:' + Math.min(88, pos(end)) + '%">' + end + '年まで</span>';
+    const tl = $('tlBox');
+    if (!tl.querySelector('i')) {
+      tl.innerHTML = '<i></i><span class="now"></span><span class="lb lbA"></span><span class="lb lbB"></span>';
+    }
+    const bar = tl.querySelector('i'), nw = tl.querySelector('.now'),
+          la = tl.querySelector('.lbA'), lb = tl.querySelector('.lbB');
+    bar.style.left = pos(d) + '%';
+    bar.style.width = Math.max(0, pos(end) - pos(d)) + '%';
+    nw.style.left = pos(NOW) + '%';
+    la.style.left = pos(d) + '%'; la.textContent = '没' + d;
+    lb.style.left = Math.min(88, pos(end)) + '%'; lb.textContent = end + '年まで';
     const over = NOW > end;
     const n = $('tlNote');
     n.className = 'note ' + (over ? 'ok' : 'warn');

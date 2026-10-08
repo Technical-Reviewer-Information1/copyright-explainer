@@ -41,3 +41,6 @@ table.tbl td .blankin{width:100%; max-width:none}
 .rulelist{border:1px solid var(--line);border-radius:3px;overflow:hidden}
 .rulelist > label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:1px solid var(--line);cursor:pointer}
 .rulelist > label:first-child{border-top:0}
+
+/* 保護期間バーをなめらかに */
+.timeline2 i,.timeline2 .lb,.timeline2 .now{transition:left .5s cubic-bezier(.45,.05,.35,1),width .5s cubic-bezier(.45,.05,.35,1)}
